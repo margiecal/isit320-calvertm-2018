@@ -2,3 +2,4 @@ Thumbs.db
 temp/*
 .metadata
 node_modules
+.idea/*
