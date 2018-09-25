@@ -3,4 +3,5 @@ temp/*
 .metadata
 node_modules
 .idea/*
-
+.c9
+bower_components
