@@ -4,7 +4,7 @@
   "description": "react basics examples",
   "main": "npm start",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server",
+    "start": "node_modules/.bin/webpack-dev-server --port=8080 --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack"
   },
