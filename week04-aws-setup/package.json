@@ -1,0 +1,25 @@
+{
+  "name": "week04-aws-setup",
+  "version": "1.0.0",
+  "description": "setting up aws",
+  "main": "run.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/margiecal/isit320-calvertm-2018.git"
+  },
+  "keywords": [
+    "aws"
+  ],
+  "author": "Margie Calvert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/margiecal/isit320-calvertm-2018/issues"
+  },
+  "homepage": "https://github.com/margiecal/isit320-calvertm-2018#readme",
+  "dependencies": {
+    "aws-sdk": "^2.329.0"
+  }
+}
