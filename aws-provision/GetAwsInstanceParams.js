@@ -13,10 +13,10 @@ const getInstanceParams = (awsParams) => {
                 }
             }
         ],
-        ImageId: 'ami-702d7f08',
+        ImageId: awsParams.ImageId,
         InstanceType: 't2.micro',
-        KeyName: 'EC2Fall2018',
-        SecurityGroupIds: ['sg-0d6dd07943b766627'],
+        KeyName: awsParams.KeyName,
+        SecurityGroupIds: awsParams.SecurityGroupIds,
         MinCount: 1,
         MaxCount: 1
     };
