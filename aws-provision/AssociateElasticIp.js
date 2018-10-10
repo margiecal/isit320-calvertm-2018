@@ -1,9 +1,9 @@
 var AWS = require('aws-sdk');
-//AWS.config.loadFromPath(process.env.HOME + '/.aws/config.json');
+AWS.config.loadFromPath(process.env.HOME + '/.aws/config.json');
 var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 var elasticIpParams = {
-    AllocationId: '',
-    InstanceId: ''
+    AllocationId: eipalloc-09d2bd11d613fcbd7,
+    InstanceId: i-058d907e015696757
 };
 
 module.exports = () => {
