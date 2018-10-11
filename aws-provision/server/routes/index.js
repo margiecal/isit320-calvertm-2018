@@ -16,7 +16,7 @@ router.get('/foo', function(request, response) {
 
 router.get('/create', function(req, res, next) { 'use strict';
     var message = { 'result': 'success'};
-    const awsInstanceParams = getAwsInstanceParams.awsCharlie();
+    const getAwsInstanceParams = getAwsInstanceParams.awsCharlie();
     createInstance(awsInstanceParams);
     response.send(message);
 });
