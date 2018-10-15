@@ -14,9 +14,9 @@ router.get('/foo', function(request, response) {
   response.send(message);
 });
 
-router.get('/create', function(req, res, next) { 'use strict';
+router.get('/create-educate', function(request, response) { 'use strict';
     var message = { 'result': 'success'};
-    const getAwsInstanceParams = getAwsInstanceParams.awsCharlie();
+    const awsInstanceParams = getAwsInstanceParams.awsCharlie();
     createInstance(awsInstanceParams);
     response.send(message);
 });
