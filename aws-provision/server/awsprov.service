@@ -1,0 +1,17 @@
+[Unit]
+Description=Run AWS Provisionsetsetup
+
+[Service]
+ExecStart=/home/margie/npm/bin/npm run start-service
+WorkingDirectory=/home/margie/bin/awsprov
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=awsprov
+User=margie
+Group=margie
+Environment=NODE_ENV=production
+Environment=PORT=30200
+
+[Install]
+WantedBy=multi-user.target

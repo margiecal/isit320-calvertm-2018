@@ -1,0 +1,9 @@
+#! /bin/bash
+
+function copyService() {
+    sudo cp -v awsprov.service /etc/systemd/system/.
+    sudo systemctl enable awsprov.service
+    sudo systemctl start awsprov.service
+}
+
+./mod-service $1 && copyService
