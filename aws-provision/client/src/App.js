@@ -14,45 +14,78 @@ class App extends Component {
     queryServer = () => {
         const that = this;
         fetch('/foo')
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 console.log('parsed json', json);
                 that.setState(foo => (json));
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log('parsing failed, URL bad, network down, or similar', ex);
             });
     };
 
-    create = () => {
+    createEducate = () => {
         const that = this;
         fetch('/create-educate')
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 console.log('parsed json', json);
 
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log('parsing failed, URL bad, network down, or similar', ex);
             });
     };
+
+    createWithAwsStandardAccount = () => {
+        const that = this;
+        fetch('/create-standard')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                console.log('parsed json', json);
+
+            })
+            .catch(function (ex) {
+                console.log('parsing failed, URL bad, network down, or similar', ex);
+            });
+    };
+
+    associateElasticIp = () => {
+        const that = this;
+        fetch('/associate-elastic-ip')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                console.log('parsed json', json);
+
+            })
+            .catch(function (ex) {
+                console.log('parsing failed, URL bad, network down, or similar', ex);
+            });
+    }
 
     render() {
         return (
             <div className="App">
 
 
-        <p className="App-intro">
-            state: {this.state.status} file: {this.state.file}
-    </p>
-        <button onClick={this.queryServer}>Bar</button>
-        <button onClick={this.create}>Create</button>
-        </div>
-    );
+                <p className="App-intro">
+                    state: {this.state.status} file: {this.state.file}
+                </p>
+                <button onClick={this.queryServer}>Bar</button>
+                <button onClick={this.createEducate}>Create</button>
+                <button onClick={this.createWithAwsStandardAccount}>Create With StandardAwsAccount</button>
+                <button onClick={this.associateElasticIp}>Associate Elastic Ip</button>
+
+            </div>
+        );
     }
 }
 

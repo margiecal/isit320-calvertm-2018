@@ -36,14 +36,14 @@ function showAwsCharlieConfiguration() {
     console.log(AWS.config);
 }
 
-/*module.exports.awsEducate = () => {
+module.exports.awsEducate = () => {
     showAwsEducateCredentials();
-    AWS.config.update({region:'us-east-1'});
-    awsParams.ImageId = 'ami-0ac019f4fcb7cb7e6';
-    awsParams.KeyName = <KEY NAME>;
-    awsParams.SecurityGroupIds = [<SECURITY_GROUP_ID>];
+    //AWS.config.update({region:'us-west-2'});
+    awsParams.ImageId = 'ami-702d7f08';
+    awsParams.KeyName = 'EC2Fall2018';
+    awsParams.SecurityGroupIds = ['sg-0d6dd07943b766627'];
     return getInstanceParams(awsParams);
-};*/
+};
 
 module.exports.awsCharlie = () => {
     showAwsCharlieConfiguration();
