@@ -1,0 +1,17 @@
+[Unit]
+Description=Temp Service
+
+[Service]
+ExecStart=/home/bcuser/npm/bin/npm run start-service
+WorkingDirectory=/home/bcuser/bin/temp
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=temp
+User=bcuser
+Group=bcuser
+Environment=NODE_ENV=production
+Environment=SERVER_PORT=30026
+
+[Install]
+WantedBy=multi-user.target
