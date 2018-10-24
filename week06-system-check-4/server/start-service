@@ -1,0 +1,4 @@
+#! /bin/bash
+
+sudo systemctl enable systemchecck.service
+sudo systemctl start systemchecck.service
