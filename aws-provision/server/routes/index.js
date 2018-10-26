@@ -29,7 +29,7 @@ router.get('/create-standard', function(request, response) { 'use strict';
     response.send(message);
 });
 
-router.get('/associate-elastic-ip', function(request, response) { 'use strict';
+/*router.get('/associate-elastic-ip', function(request, response) { 'use strict';
     var message = { 'result': 'success'};
     //const awsInstanceParams = getAwsInstanceParams.awsCharlie();
     //const myInstance = createInstance(awsInstanceParams);
@@ -38,6 +38,6 @@ router.get('/associate-elastic-ip', function(request, response) { 'use strict';
     //myEip.elasticIpParams.InstanceId = myInstance.InstanceId;
     //myEip.ec2.associateAddress(myEip.elasticIpParams);
     response.send(message);
-});
+});*/
 
 module.exports = router;
