@@ -42,16 +42,19 @@ const copyFile = () => {
         });
     });
 };
-router.get('/copy-file', function(req, res) { 'use strict';
+
+router.get('/copy-file', function(request, response) { 'use strict';
+    //response.send(Result: 'success'});
+
     copyFile()
         .then((result) => {
-            console.log(JSON.stringify(result, null, 4));
-            res.send(result);
+            console.log("This is from the server: " + JSON.stringify(result, null, 4));
+            response.send(result);
         })
         .catch((err) => {
             console.log(err);
-            res.send(err);
+            response.send(err);
         })
-
 });
+
 module.exports = router;
