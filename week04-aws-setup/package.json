@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/margiecal/isit320-calvertm-2018#readme",
   "dependencies": {
-    "aws-sdk": "^2.330.0"
+    "aws-sdk": "^2.344.0"
   }
 }
