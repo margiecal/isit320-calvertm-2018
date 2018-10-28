@@ -15,14 +15,14 @@ class App extends Component {
     queryServer = () => {
         const that = this;
         fetch('/foo')
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 console.log('parsed json', json);
                 that.setState(foo => (json));
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log('parsing failed, URL bad, network down, or similar', ex);
             });
     };
@@ -30,17 +30,24 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-            <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <h2>Welcome to React</h2>
-        </div>
+                <div>
 
-        <p className="App-intro">
-            state: {this.state.status} file: {this.state.file}
-    </p>
-        <button onClick={this.queryServer}>Bar</button>
-        </div>
-    );
+                    <h2>Welcome to EC2 Provision Repo</h2>
+                </div>
+
+                <p className="App-intro">
+                    state: {this.state.status} file: {this.state.file}
+                </p>
+                <button onClick={this.queryServer}>Bar</button>
+                <button onClick={this.createEducate}>Create with AWS Educate Account</button>
+                <button onClick={this.createWithAwsStandardAccount}>Create with AWS Standard Account</button>
+                <button onClick={this.associateElasticIp}>Associate Elastic Ip</button>
+                <button onClick={this.copyGetStarted}>Copy the GetStarted Script</button>
+                <button onClick={this.runGetStarted}>Run the GetStarted Script</button>
+                <button onClick={this.removeKnownHost}>Remove From Known Host</button>
+
+            </div>
+        );
     }
 }
 
