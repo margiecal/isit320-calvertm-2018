@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc86a25-38d7-456a-b722-17f0bfd6d1d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/prettier" beforeDir="false" afterPath="$PROJECT_DIR$/client/prettier" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/node_modules/ssh2/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/node_modules/ssh2/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/prettier" beforeDir="false" afterPath="$PROJECT_DIR$/server/prettier" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="2fc86a25-38d7-456a-b722-17f0bfd6d1d3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -25,7 +15,7 @@
     <session id="907076138">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.25" value="1" />
@@ -268,12 +258,12 @@
       <workItem from="1540256658174" duration="631000" />
       <workItem from="1540257804138" duration="175000" />
       <workItem from="1540782171717" duration="469000" />
-      <workItem from="1540782714772" duration="1011000" />
+      <workItem from="1540782714772" duration="1612000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8480000" />
+    <option name="totallyTimeSpent" value="9081000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="24" y="-25" width="1866" height="951" extended-state="0" />
