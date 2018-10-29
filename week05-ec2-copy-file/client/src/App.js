@@ -29,7 +29,7 @@ class App extends Component {
 
         </main>
         <footer>
-          <p>&copy; by Charlie Calvert </p>
+          <p>&copy; by Margie Calvert </p>
         </footer>
       </div>
     );
