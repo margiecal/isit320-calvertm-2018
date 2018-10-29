@@ -33,7 +33,7 @@ class App extends Component {
       </header>
         <main>
             <button onClick={this.callCpuInfo}>Call Cpu Info</button>
-            <text>{this.state.allData}</text>
+            <p>{this.state.allData}</p>
         </main>
 
           <footer>
