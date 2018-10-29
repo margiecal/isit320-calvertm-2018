@@ -11,7 +11,7 @@ class App extends Component {
     }
     callCpuInfo = () => {
         const that = this;
-        fetch('/call-cpu-info')
+        fetch('ssh-runner/call-cpu-info')
             .then(function (response) {
                 return response.json();
             })
@@ -25,15 +25,19 @@ class App extends Component {
     };
 
   render() {
+
+
+
+
     return (
       <div className="App">
       <header>
-          <p className="byline">by </p>
+          <p className="byline">by Margie Calvert</p>
         <h1>Run SSH</h1>
       </header>
         <main>
             <button onClick={this.callCpuInfo}>Call Cpu Info</button>
-            <text>{this.state.allData}</text>
+            <p>{this.state.allData}</p>
         </main>
 
           <footer>
