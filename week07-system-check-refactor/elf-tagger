@@ -28,7 +28,7 @@ function git_branch {
 
 git_branch
 
-OLD_TAG_VERSION=`git tag | --sort=taggerdate | tail -1|  sed -En "s/v(.*)/\1/p"`
+OLD_TAG_VERSION=`git tag --sort=taggerdate | tail -1|  sed -En "s/v(.*)/\1/p"`
 
 TAG_VERSION=v`semver-inc -p $OLD_TAG_VERSION`
 
@@ -49,6 +49,8 @@ function push_tag() {
 }
 
 push_tag
+
+
 
 
 
