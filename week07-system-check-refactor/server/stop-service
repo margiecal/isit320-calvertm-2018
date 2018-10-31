@@ -1,4 +1,4 @@
 #! /bin/bash
 
-sudo systemctl stop scref.service
-sudo systemctl disable scref.service
+sudo systemctl stop midterm.service
+sudo systemctl disable midterm.service
