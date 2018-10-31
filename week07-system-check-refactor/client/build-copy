@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+SERVER_DIR='../server/public'
+
+npm run build
+
+rm -v ${SERVER_DIR}/precache-manifest*.js
+rm -r -v ${SERVER_DIR}'/static'
+cp -r -v build/* ${SERVER_DIR}/.
+
+
+
