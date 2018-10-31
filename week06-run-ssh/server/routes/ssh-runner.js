@@ -8,29 +8,29 @@ let allData = '';
 
 const runCpuInfo = (hostAddress, response) => {
     var conn = new Client();
-    conn.on('ready', function () {
+    conn.on('ready', function() {
         console.log('Client :: ready');
-        conn.exec('~/CpuInfo', function (err, stream) {
+        conn.exec('~/CpuInfo', function(err, stream) {
             if (err) throw err;
             stream
-                .on('close', function (code, signal) {
+                .on('close', function(code, signal) {
                     console.log(
                         'Stream :: close :: code: ' +
-                        code +
-                        ', signal: ' +
-                        signal
+                            code +
+                            ', signal: ' +
+                            signal
                     );
                     conn.end();
-                    response.send({result: 'success', allData: allData});
+                    response.send({ result: 'success', allData: allData });
                 })
-                .on('data', function (data) {
+                .on('data', function(data) {
                     console.log('STDOUT: ' + data);
                     allData += data;
                 })
-                .stderr.on('data', function (data) {
-                console.log('STDERR: ' + data);
-                allData += data;
-            });
+                .stderr.on('data', function(data) {
+                    console.log('STDERR: ' + data);
+                    allData += data;
+                });
         });
     }).connect({
         host: hostAddress,
@@ -42,10 +42,8 @@ const runCpuInfo = (hostAddress, response) => {
     });
 };
 
-
-
 router.get('/call-cpu-info', (request, response) => {
-    console.log("cpu info called");
+    console.log('cpu info called');
     runCpuInfo(hostAddress, response);
 });
 
