@@ -8,8 +8,6 @@ function copyNew(){
     cp -r  build/* ${SERVER_DIR}/.
 }
 
-
-
 function deleteOld(){
     rm -v ${SERVER_DIR}/precache-manifest*.js
     rm -v ${SERVER_DIR}/service-worker.js
