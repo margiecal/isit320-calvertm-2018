@@ -67,7 +67,7 @@ class App extends Component {
         this.runScript(this.dataEndPoints[this.state.endPointIndex], this.state.selectedValue);
         event.preventDefault();
     };
-    
+
     render() {
         const radioWeb = (
             <div className="container">
