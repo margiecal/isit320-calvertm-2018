@@ -9,21 +9,21 @@ import App from './App';
 
 configure({ adapter: new Adapter() });
 
-describe('rest basic tests', function() {
+describe('Elfheader suite', function() {
 
-
-
-    it('renders h1 header test', () => {
-        const wrapper = shallow(<App/>);
-        console.log("TESTER", wrapper.find('h1').debug());
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(<ElfHeader/>, div);
+        ReactDOM.unmountComponentAtNode(div);
     });
+
 
 
     it('renders h1 header', () => {
         const wrapper = shallow(<ElfHeader/>);
         console.log(wrapper.debug());
         const unknown = <h1>System Check</h1>;
-        elfDebugEnzyme.getLast(wrapper, 'ElfHeader', true);
+        elfDebugEnzyme.getLast(wrapper, 'h1', true);
         console.log(wrapper.find('h1').debug());
         expect(wrapper.contains(unknown)).toEqual(true);
     });

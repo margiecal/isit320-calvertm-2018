@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ElfHeader from './ElfHeader';
 
 class App extends Component {
+
+    copyFile = () => {
+        const that = this;
+        fetch('/script-pusher/copy-file')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                console.log('parsed json', json);
+
+            })
+            .catch(function(ex) {
+                console.log('parsing failed, URL bad, network down, or similar', ex);
+            });
+    };
+
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
+                <ElfHeader />
+
+                <main>
+                    <button onClick={this.copyFile}>Copy File</button>
+
+                </main>
+                <footer>
+                    <p>&copy; by Charlie Calvert </p>
+                </footer>
             </div>
         );
     }
