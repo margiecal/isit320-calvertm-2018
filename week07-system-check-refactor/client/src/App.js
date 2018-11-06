@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ElfHeader from './ElfHeader';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <header>
-                    <h1>System Check</h1>
-                </header>
+                <ElfHeader />
             </div>
         );
     }
