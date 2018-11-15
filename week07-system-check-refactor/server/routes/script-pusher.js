@@ -5,9 +5,11 @@ var router = express.Router();
 
 const spawn = require('child_process').spawn;
 
-let allData = "";
+
 
 const copyFile = () => {
+
+    let allData = "";
 
     return new Promise(function (resolve, reject) {
 
