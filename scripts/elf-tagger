@@ -35,6 +35,7 @@ function git_branch {
 OLD_TAG_VERSION=`git tag --sort=taggerdate | tail -1|  sed -En "s/v(.*)/\1/p"`
 
 TAG_VERSION=v`semver-inc -p $OLD_TAG_VERSION`
+echo $TAG_VERSION
 
 BRANCH=`git_branch`
 
