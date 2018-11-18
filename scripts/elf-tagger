@@ -5,15 +5,10 @@ if [[ -z $2 ]]; then
     exit
 fi
 
-
-
 if [[ ! -z $3 ]]; then
     echo -e "Too many parameters"
     exit
 fi
-
-
-
 
 # IFS is the default separator of white space
 # BASH_REMATCH gets the first Regular Express match
@@ -33,6 +28,7 @@ function git_branch {
 
 
 OLD_TAG_VERSION=`git tag --sort=taggerdate | tail -1|  sed -En "s/v(.*)/\1/p"`
+echo $OLD_TAG_VERSION
 
 TAG_VERSION=v`semver-inc -p $OLD_TAG_VERSION`
 echo $TAG_VERSION
