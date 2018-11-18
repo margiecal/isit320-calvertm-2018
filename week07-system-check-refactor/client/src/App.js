@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ElfHeader from './ElfHeader';
 
 class App extends Component {
     constructor(props) {
@@ -46,9 +47,9 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header>
-                    <h1>Week6 SystemCheck </h1>
-                </header>
+                <ElfHeader />
+
+
 
                 <main>
                     <button onClick={this.copyFile}>Copy File</button>
