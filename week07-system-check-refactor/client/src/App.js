@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import ElfHeader from './ElfHeader';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allData: 'unknown'
+        };
+    }
+    callCpuInfo = () => {
+        const that = this;
+        fetch('/ssh-runner/call-cpu-info')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                console.log('parsed json', json.allData);
+                that.setState({ allData: json.allData });
+            })
+            .catch(function(ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
+            });
+    };
 
     copyFile = () => {
         const that = this;
@@ -13,24 +34,29 @@ class App extends Component {
             })
             .then(function(json) {
                 console.log('parsed json', json);
-
             })
             .catch(function(ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
             });
     };
 
     render() {
         return (
             <div className="App">
-                <ElfHeader />
+                <header>
+                    <h1>Week6 SystemCheck </h1>
+                </header>
 
                 <main>
                     <button onClick={this.copyFile}>Copy File</button>
-
+                    <button onClick={this.callCpuInfo}>Run CPU Info</button>
+                    <p>{this.state.allData}</p>
                 </main>
                 <footer>
-                    <p>&copy; by Charlie Calvert </p>
+                    <p>&copy; by Margie Calvert </p>
                 </footer>
             </div>
         );
