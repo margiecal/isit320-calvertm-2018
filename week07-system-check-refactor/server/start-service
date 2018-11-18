@@ -1,4 +1,4 @@
 #! /bin/bash
 
-sudo systemctl enable systemcheck.service
-sudo systemctl start systemcheck.service
+sudo systemctl enable scref.service
+sudo systemctl start scref.service

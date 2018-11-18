@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -12,16 +11,19 @@ class App extends Component {
     callCpuInfo = () => {
         const that = this;
         fetch('/ssh-runner/call-cpu-info')
-            .then(function (response) {
+            .then(function(response) {
                 return response.json();
             })
-            .then(function (json) {
+            .then(function(json) {
                 console.log('parsed json', json.allData);
-                that.setState({allData: json.allData});
+                that.setState({ allData: json.allData });
             })
-            .catch(function (ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
-            })
+            .catch(function(ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
+            });
     };
 
     copyFile = () => {
@@ -41,9 +43,6 @@ class App extends Component {
             });
     };
 
-
-
-
     render() {
         return (
             <div className="App">
@@ -55,7 +54,6 @@ class App extends Component {
                     <button onClick={this.copyFile}>Copy File</button>
                     <button onClick={this.callCpuInfo}>Run CPU Info</button>
                     <p>{this.state.allData}</p>
-
                 </main>
                 <footer>
                     <p>&copy; by Margie Calvert </p>

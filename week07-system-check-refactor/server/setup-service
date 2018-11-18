@@ -1,9 +1,9 @@
 #! /bin/bash
 
 function copyService() {
-    sudo cp -v systemcheck.service /etc/systemd/system/.
-    sudo systemctl enable systemcheck.service
-    sudo systemctl start systemcheck.service
+    sudo cp -v scref.service /etc/systemd/system/.
+    sudo systemctl enable scref.service
+    sudo systemctl start scref.service
 }
 
 copyService
