@@ -29,7 +29,25 @@ class App extends Component {
                 );
             });
     };
-    
+
+    versionCheck = () => {
+        const that = this;
+        const modelName = "model name";
+        fetch('/ssh-runner/call-cpu-info')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                console.log('parsed json', json.allData.modelName);
+                that.setState({ allData: json.allData });
+            })
+            .catch(function(ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
+            });
+    };
     
     
     
@@ -44,7 +62,9 @@ class App extends Component {
         console.log('A name was submitted: ' , this.state);
         if(this.state.checkedRadioButton==='CpuInfo'){
 			this.callCpuInfo();
-		}
+		}else if (this.state.checkedRadioButton==='VersionCheck') {
+            this.versionCheck();
+        }
         event.preventDefault();
     };
   
