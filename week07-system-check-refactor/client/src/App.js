@@ -6,28 +6,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allData: 'unknown'
+            allData: 'unknown',
+            checkedRadioButton: '',
+            message: ''
         };
     }
-
-    handleChange = (event) => {
-        const selectedValue = event.target.value;
-        console.log('HANDLE CHANGE', selectedValue);
-        this.setState({
-            ...this.state,
-            selectedValue: selectedValue
-        });
-
-    };
-
-    handleSubmit= (event) => {
-        this.setState({allData: ''});
-        console.log('A name was submitted: ' , this.state);
-        //if (this.state.selectedValue === 'cpu') {
-        this.runCpuInfo(this.state.selectedValue);
-        //}
-        event.preventDefault();
-    };
 
     callCpuInfo = () => {
         const that = this;
@@ -46,6 +29,27 @@ class App extends Component {
                 );
             });
     };
+    
+    
+    
+    
+    handleChange = (event) => {
+        const selectedValue = event.target.value;
+        console.log('HANDLE CHANGE', selectedValue);
+        this.setState({checkedRadioButton: selectedValue});
+    };
+
+    handleSubmit= (event) => {
+        this.setState({allData: ''});
+        console.log('A name was submitted: ' , this.state);
+        if(this.state.checkedRadioButton==='CpuInfo'){
+			this.callCpuInfo();
+		}
+        event.preventDefault();
+    };
+  
+    
+    
 
     copyFile = () => {
         const that = this;
@@ -91,6 +95,7 @@ class App extends Component {
 
                 <section>
                     {radioWeb}
+                    <p>Selected radio button: {this.state.checkedRadioButton}</p>
                 </section>
 
                 <section>
