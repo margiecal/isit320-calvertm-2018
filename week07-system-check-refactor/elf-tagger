@@ -26,13 +26,14 @@ function git_branch {
   fi
 }
 
-git_branch
 
 OLD_TAG_VERSION=`git tag --sort=taggerdate | tail -1|  sed -En "s/v(.*)/\1/p"`
+echo $OLD_TAG_VERSION
 
 TAG_VERSION=v`semver-inc -p $OLD_TAG_VERSION`
+echo $TAG_VERSION
 
-BRANCH = `git_branch`
+BRANCH=`git_branch`
 
 TAG_STRING="$1 for $2 on branch `git_branch` with tag ${TAG_VERSION}."
 echo $TAG_STRING

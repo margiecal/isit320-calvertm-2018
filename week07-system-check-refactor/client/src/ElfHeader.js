@@ -8,7 +8,7 @@ class ElfHeader
         return (
             <div className="App">
                 <header>
-                    <h1>System Check</h1>
+                    <h1>Margie's System Check</h1>
                 </header>
             </div>
         );
