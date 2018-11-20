@@ -32,13 +32,13 @@ class App extends Component {
 
     versionCheck = () => {
         const that = this;
-        const modelName = "model name";
-        fetch('/ssh-runner/call-cpu-info')
+
+        fetch('/ssh-runner/call-version-check')
             .then(function(response) {
                 return response.json();
             })
             .then(function(json) {
-                console.log('parsed json', json.allData.modelName);
+                console.log('Version Check AllData', json.allData);
                 that.setState({ allData: json.allData });
             })
             .catch(function(ex) {
