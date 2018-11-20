@@ -11,7 +11,7 @@ SyslogIdentifier=systemcheck
 User=bcuser
 Group=bcuser
 Environment=NODE_ENV=production
-Environment=SERVER_PORT=30033
+Environment=ELF_SYSTEM_CHECK_PORT=30034
 Environment=SETUP_LINUXBOX=/home/bcuser/Git/JsObjects/Utilities/SetupLinuxBox
 
 
