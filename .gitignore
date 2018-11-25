@@ -40,6 +40,8 @@ temp/*
 
 .idea*
 
+old-midterm/**
+
 **/public/static/**
 **/public/precache-manifest.\*.js
 **/public/asset-manifest.json
