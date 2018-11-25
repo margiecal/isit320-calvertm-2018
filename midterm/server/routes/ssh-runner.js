@@ -52,9 +52,9 @@ const runVersionCheck = (hostAddress, response) => {
                 .on('close', function(code, signal) {
                     console.log(
                         'Stream :: close :: code: ' +
-                        code +
-                        ', signal: ' +
-                        signal
+                            code +
+                            ', signal: ' +
+                            signal
                     );
                     conn.end();
                     response.send({ result: 'success', allData: allData });
@@ -64,9 +64,9 @@ const runVersionCheck = (hostAddress, response) => {
                     allData += data;
                 })
                 .stderr.on('data', function(data) {
-                console.log('STDERR: ' + data);
-                allData += data;
-            });
+                    console.log('STDERR: ' + data);
+                    allData += data;
+                });
         });
     }).connect({
         host: hostAddress,
