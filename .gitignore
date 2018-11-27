@@ -32,6 +32,9 @@ DeleteMe*
 *.*~
 *~
 
+nohup.out
+*.js.map
+
 npm-debug.log
 foo.bat
 
@@ -39,6 +42,8 @@ temp/*
 .metadata
 
 .idea*
+
+old-midterm/**
 
 **/public/static/**
 **/public/precache-manifest.\*.js
