@@ -32,6 +32,9 @@ DeleteMe*
 *.*~
 *~
 
+nohup.out
+*.js.map
+
 npm-debug.log
 foo.bat
 
