@@ -1,4 +1,3 @@
-
 #! /usr/bin/env bash
 
 RED='\033[0;31m'
@@ -10,35 +9,32 @@ NC='\033[0m' # No Color
 
 SERVER_DIR="${PWD}/../server/public"
 
-function deleteOld() {
-    rm -v ${SERVER_DIR}/precache-manifest*.js
-    rm -v -r ${SERVER_DIR}'/static'
+function message {
+    echo
+    echo =============================
+    echo "$1"
+    echo =============================
+    echo
 }
 
-function copyNew() {
-    npm run build
-    cp -r build/* ${SERVER_DIR}/.
-}
+message 'Build Copy Client to Server'
 
-function runAll() {
-   deleteOld
-   copyNew
-}
+echo 'Create an optimized build of our react client.'
+echo 'Copy these build files to the server.'
 
 while true; do
-    echo -e "$YELLOW Menu"
+    message "Menu"    
     echo -e "$LIGHT_GREEN  a) Delete Old Files and Run Build"
     echo -e "$LIGHT_GREEN  b) Only Build"
     echo -e "$LIGHT_GREEN  c) Only Delete"
-    echo -e "$LIGHT_RED  x) Exit (You should source .bashrc when done)"
+    echo -e "$LIGHT_RED  x) Exit"
     echo -e "\n$NC"
     read -p "Please make a selection: " userInput
     case $userInput in
-        [Aa]* ) runAll false; continue;;
-        [Bb]* ) copyNew; continue;;
-        [Cc]* ) deleteOld; continue;;
+        [Aa]* ) ./build-copy-worker a; continue;;
+        [Bb]* ) ./build-copy-worker b; continue;;
+        [Cc]* ) ./build-copy-worker c; continue;;
         [XxQq]* ) break;;
-        *) echo -e "\n$NC" + "Please answer with a, b, c or x (or q).";;
+        *) echo -e "\n$NC" + "Please answer with a, b, c, or x.";;
     esac
 done
-

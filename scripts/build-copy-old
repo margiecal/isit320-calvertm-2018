@@ -37,6 +37,12 @@ function message {
     echo
 }
 
+message 'Build Copy Client to Server'
+
+echo 'Create an optimized build of our react client.'
+echo 'Copy these build files to the server.'
+
+
 while true; do
     message "Menu"
    
