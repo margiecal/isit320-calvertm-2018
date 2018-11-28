@@ -1,3 +1,4 @@
+
 #! /usr/bin/env bash
 
 RED='\033[0;31m'
@@ -8,6 +9,25 @@ BLUE='\033[1;36m'
 NC='\033[0m' # No Color
 
 SERVER_DIR="${PWD}/../server/public"
+
+function deleteOld() {
+	rm -v ${SERVER_dir}/asset-manifest.json
+	rm -v ${SERVER_dir}/index.html
+	rm -v ${SERVER_dir}/manifest.json
+	rm -v ${SERVER_dir}/service-worker.js
+    rm -v ${SERVER_DIR}/precache-manifest*.js
+    rm -v -r ${SERVER_DIR}'/static'
+}
+
+function copyNew() {
+    npm run build
+    cp -r build/* ${SERVER_DIR}/.
+}
+
+function runAll() {
+   deleteOld
+   copyNew
+}
 
 function message {
     echo
@@ -22,19 +42,22 @@ message 'Build Copy Client to Server'
 echo 'Create an optimized build of our react client.'
 echo 'Copy these build files to the server.'
 
+
 while true; do
-    message "Menu"    
+    message "Menu"
+   
     echo -e "$LIGHT_GREEN  a) Delete Old Files and Run Build"
     echo -e "$LIGHT_GREEN  b) Only Build"
     echo -e "$LIGHT_GREEN  c) Only Delete"
-    echo -e "$LIGHT_RED  x) Exit"
+    echo -e "$LIGHT_RED  x) Exit (You should source .bashrc when done)"
     echo -e "\n$NC"
     read -p "Please make a selection: " userInput
     case $userInput in
-        [Aa]* ) ./build-copy-worker a; continue;;
-        [Bb]* ) ./build-copy-worker b; continue;;
-        [Cc]* ) ./build-copy-worker c; continue;;
+        [Aa]* ) runAll false; continue;;
+        [Bb]* ) copyNew; continue;;
+        [Cc]* ) deleteOld; continue;;
         [XxQq]* ) break;;
-        *) echo -e "\n$NC" + "Please answer with a, b, c, or x.";;
+        *) echo -e "\n$NC" + "Please answer with a, b, c or x (or q).";;
     esac
 done
+

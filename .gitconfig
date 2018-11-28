@@ -1,0 +1,12 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	last = log -1 HEAD
+	tag1 = tag -n1
+[diff]
+	tool = meld
+[user]
+	email = margiecalvert@gmail.com
+	name = Margie at School
