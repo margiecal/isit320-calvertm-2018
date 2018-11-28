@@ -31,7 +31,7 @@ MyTempDir
 DeleteMe*
 *.*~
 *~
-
+old-midterm/**
 npm-debug.log
 foo.bat
 
