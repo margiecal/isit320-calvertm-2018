@@ -12,7 +12,7 @@ class App extends Component {
             selectedValue: '',
             endPointIndex: 0
         };
-
+    }
         runScript = (path, script) => {
             const that = this;
             if (!script) {
@@ -67,7 +67,7 @@ class App extends Component {
                 });
         };
 
-        versionCheck = () => {
+        callVersionCheck = () => {
             const that = this;
 
             fetch('/ssh-runner/call-version-check')
@@ -85,6 +85,26 @@ class App extends Component {
                     );
                 });
         };
+
+        callUptime = () => {
+            const that = this;
+
+            fetch('/ssh-runner/call-uptime')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (json) {
+                    console.log('Uptime AllData', json.allData);
+                    that.setState({allData: json.allData});
+                })
+                .catch(function (ex) {
+                    console.log(
+                        'parsing failed, URL bad, network down, or similar',
+                        ex
+                    );
+                });
+        };
+
 
 
         handleChange = (event) => {
@@ -127,8 +147,7 @@ class App extends Component {
                 });
         };
 
-        render()
-        {
+        render() {
             const radioWeb = (
                 <div className="container">
                     <form onSubmit={this.handleSubmit}>
@@ -154,6 +173,16 @@ class App extends Component {
                                     onChange={this.handleChange}
                                 />
                                 <label htmlFor="elf-radio-version">Version Info</label>
+
+                                <input
+                                    type="radio"
+                                    name="app-choice"
+                                    data-endpoint="0"
+                                    value="uptime"
+                                    id="elf-radio-uptime"
+                                    onChange={this.handleChange}
+                                />
+                                <label htmlFor="elf-radio-uptime">Uptime</label>
                             </div>
 
                             <div className="form-group">
@@ -194,6 +223,4 @@ class App extends Component {
         }
     }
 
-    export
-    default
-    App;
+    export default App;

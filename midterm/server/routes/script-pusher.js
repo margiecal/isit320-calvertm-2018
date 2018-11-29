@@ -20,9 +20,9 @@ const check = (request, response, next) => {
 router.use(check);
 
 ////Following need to be implemented
-router.get('/run-script', (request, response) => {...
+//router.get('/run-script', (request, response) => {...
     ///stuff from JsObjects});
-router.get('/run-system-tool', (request, response) => {..
+//router.get('/run-system-tool', (request, response) => {..
    ///stuff from the /usr/bin directory on our system.});
 
     //on client this.dataEndPoints = ['/script-pusher/run-script?script=',
