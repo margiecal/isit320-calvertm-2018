@@ -32,6 +32,13 @@ const getSshIp = () => {
     });
 };
 
+router.get('/uptime', function(request, respone){
+    console.log('run-get-started called in ssh-runner');
+    //runCpuInfo(hostAddress,response);
+    getSshIp()
+
+})
+
 getSshIp()
     .then(result => {
         console.log(result)
