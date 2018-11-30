@@ -3,8 +3,13 @@ var router = express.Router();
 
 let allData = '';
 
+/*
+router.get('/run-system-tool', (request, response) => {
+    console.log("THIS IS RUN SYSTEM TOOL");
 
+    console.log('process.env   ', process.env);
 
+});*/
 
 
 /**router.get('/run-script', (request, response) => {
@@ -20,42 +25,8 @@ let allData = '';
 
 
 
-const runUptime = (hostAddress, response) => {
-    var conn = new Client();
-    conn.on('ready', function() {
-        console.log('Client :: ready');
-        conn.exec('~/uptime', function(err, stream) {
-            if (err) throw err;
-            stream
-                .on('close', function(code, signal) {
-                    console.log(
-                        'Stream :: close :: code: ' +
-                        code +
-                        ', signal: ' +
-                        signal
-                    );
-                    conn.end();
-                    response.send({ result: 'success', allData: allData });
-                })
-                .on('data', function(data) {
-                    console.log('STDOUT: ' + data);
-                    allData += data;
-                })
-                .stderr.on('data', function(data) {
-                console.log('STDERR: ' + data);
-                allData += data;
-            });
-        });
-    }).connect({
-        host: hostAddress,
-        port: 22,
-        username: 'ubuntu',
-        privateKey: require('fs').readFileSync(
-            process.env.HOME + '/.ssh/EC2Fall2018.pem'
-        )
-    });
-};
 
+/**
 router.get('/call-cpu-info', (request, response) => {
     console.log('cpu info called');
     runCpuInfo(hostAddress, response);
@@ -70,5 +41,5 @@ router.get('/call-uptime', (request, response) => {
     console.log('uptime called');
     runUptime(hostAddress, response);
 });
-
+**/
 module.exports = router;

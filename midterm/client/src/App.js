@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import ElfHeader from './ElfHeader';
+import Local from './Local';
 
 class App extends Component {
     constructor(props) {
@@ -49,8 +50,44 @@ class App extends Component {
                 });
         };
 
+    runSystemTool = (path, script) => {
+        const that = this;
+        if (!script) {
+            return;
+        }
+        fetch(path + script)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                console.log('allData', json.allData);
+                console.log('result', json.result);
+                console.log('code', json.code);
+                console.log('error', json.error);
+                let info = '';
+                if (json.result === 'error') {
+                    info = json.error;
+                } else if (script === 'CpuInfo') {
+                    var regex1 = RegExp('model name.*', 'g');
+                    let array1 = regex1.exec(json.allData);
+                    while (array1 !== null) {
+                        info += array1[0] + '\n';
+                        console.log(`Found ${array1[0]}.`);
+                        array1 = regex1.exec(json.allData);
+                    }
+                } else {
+                    info = json.allData;
+                }
+                that.setState({allData: info});
+            })
+            .catch(function (ex) {
+                console.log('parsing failed, URL bad, network down, or similar', ex);
+            });
+    };
 
-        callCpuInfo = () => {
+
+
+    callCpuInfo = () => {
             const that = this;
             fetch('/ssh-runner/call-cpu-info')
                 .then(function (response) {
@@ -188,7 +225,7 @@ class App extends Component {
 
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary">
-                                    Run System Script
+                                    Run Remote Script
                                 </button>
                             </div>
                         </fieldset>
@@ -199,6 +236,8 @@ class App extends Component {
             return (
                 <div className="App">
                     <ElfHeader/>
+                    <Local />
+
 
                     <section>
                         {radioWeb}
@@ -215,6 +254,7 @@ class App extends Component {
                         <button onClick={this.runFoo}>Run Foo</button>
                         <button onClick={this.copyFile}>Copy File</button>
                         <button onClick={this.callCpuInfo}>Run CPU Info</button>
+                        <button onClick={this.runSystemTool()}>Run CPU Info</button>
                     </main>
                     <footer>
                         <p>&copy; by Margie Calvert </p>

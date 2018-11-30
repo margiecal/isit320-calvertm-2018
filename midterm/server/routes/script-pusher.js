@@ -3,8 +3,11 @@ var router = express.Router();
 const Client = require('ssh2').Client;
 
 const hostAddress = '18.236.24.112';
-//These are all Remote
-/* GET home page. */
+const localhostAddress = '127.0.0.1';
+const spawn = require('child_process').spawn;
+
+let allData = '';
+
 
 const check = (request, response, next) => {
     console.log('REQUEST CHECK CALLED', request.query);
@@ -21,6 +24,31 @@ const check = (request, response, next) => {
 };
 
 router.use(check);
+
+router.get('/run-system-tool', (request, response) => {
+    console.log("THIS IS RUN SYSTEM TOOL");
+
+    if(request.query.script === "uptime"){
+
+    console.log('uptime   ',  '/usr/bin/uptime');
+
+    var myResponse = '';
+    const upScript = spawn('/usr/bin/uptime');
+
+    upScript.stdout.on('data', (data) => {
+        console.log(`uptime stdout:\n${data}`);
+        myResponse = data;
+        console.log("My response:  " + myResponse);
+    });
+
+    upScript.stderr.on('data', (data) => {
+        console.error(`uptime stderr:\n${data}`);
+
+    });
+
+    response.send({result :  myResponse});
+    }
+});
 
 const runVersionCheck = (hostAddress, response) => {
     var conn = new Client();
@@ -170,9 +198,7 @@ router.get('/run-script', (request, response) => {
 
 //////Above need to be implemented
 
-const spawn = require('child_process').spawn;
 
-let allData = '';
 
 const copyFile = () => {
     return new Promise(function(resolve, reject) {
