@@ -11,7 +11,7 @@ SyslogIdentifier=scref
 User=bcuser
 Group=bcuser
 Environment=NODE_ENV=production
-Environment=SERVER_PORT=30030
+Environment=ELF_SCREF_PORT=30030
 Environment=SETUP_LINUXBOX=/home/bcuser/Git/JsObjects/Utilities/SetupLinuxBox
 
 

@@ -7,7 +7,7 @@ function banner {
     echo ===============================
 }
 
-LOCAL_IP=(./get-ip.js)
+LOCAL_IP=$(./get-ip.js)
 
 function show {
     banner "$1"
@@ -19,7 +19,7 @@ function showSystemCheck() {
 }
 
 function checkPorts() {
-    sudo nmap -p 30025-30035 $LOCAL_IP
+    sudo nmap -p 30025-30235 $LOCAL_IP
 }
 
 function message {

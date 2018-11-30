@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 # Then run: source setup-environment-service
 export SYSTEMD_PROJECT_NAME="scref"
 export SYSTEMD_DESCRIPTION="SystemCheck Refactor Service"
-export SYSTEMD_PORT="SERVER_PORT=30030"
+export SYSTEMD_PORT="ELF_SCREF_PORT=30030"
 
 
 # This export does not need to be edited. It is derived from the lines above.
