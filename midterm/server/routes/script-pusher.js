@@ -16,7 +16,11 @@ const check = (request, response, next) => {
         console.log('INSIDE REQUEST SCRIPT');
         if (!validOptions.includes(request.query.script)) {
             console.log('INSIDE REQUEST INVALID OPTION');
-            response.send({result: 'error', error: 'Invalid Option: ' + request.query.script, script: request.query.script});
+            response.send({
+                result: 'error',
+                error: 'Invalid Option: ' + request.query.script,
+                script: request.query.script
+            });
             return;
         }
     }
@@ -28,36 +32,77 @@ router.use(check);
 router.get('/run-system-tool', (request, response) => {
     console.log("THIS IS RUN SYSTEM TOOL");
 
-    if(request.query.script === "uptime"){
+    if (request.query.script === "uptime") {
+        console.log('uptime   ', '/usr/bin/uptime');
 
-    console.log('uptime   ',  '/usr/bin/uptime');
+        const upScript = spawn('/usr/bin/uptime');
 
-    var myResponse = '';
-    const upScript = spawn('/usr/bin/uptime');
+        upScript.stdout.on('data', (data) => {
+            console.log(`uptime stdout:\n${data}`);
 
-    upScript.stdout.on('data', (data) => {
-        console.log(`uptime stdout:\n${data}`);
-        myResponse = data;
-        console.log("My response:  " + myResponse);
-    });
+            allData += data;
+            console.log("My response:  " + allData);
+        });
 
-    upScript.stderr.on('data', (data) => {
-        console.error(`uptime stderr:\n${data}`);
+        upScript.stderr.on('data', (data) => {
+            console.error(`uptime stderr:\n${data}`);
+            allData += data;
+        });
 
-    });
+        response.send({result: 'success', allData: allData});
 
-    response.send({result :  myResponse});
+    } else if (request.query.script === "CpuInfo") {
+
+
+
+        const cpuInfoScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
+
+        cpuInfoScript.stdout.on('data', (data) => {
+            console.log(`uptime stdout:\n${data}`);
+
+            allData += data;
+            console.log("My response:  " + allData);
+        });
+
+        cpuInfoScript.stderr.on('data', (data) => {
+            console.error(`uptime stderr:\n${data}`);
+            allData += data;
+        });
+
+        response.send({result: 'success', allData: allData});
+
+    } else if (request.query.script === "VersionCheck") {
+
+
+
+        const versionScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
+
+        versionScript.stdout.on('data', (data) => {
+            console.log(`uptime stdout:\n${data}`);
+
+            allData += data;
+            console.log("My response:  " + allData);
+        });
+
+        versionScript.stderr.on('data', (data) => {
+            console.error(`uptime stderr:\n${data}`);
+            allData += data;
+        });
+
+        response.send({result: 'success', allData: allData});
+
     }
+
 });
 
 const runVersionCheck = (hostAddress, response) => {
     var conn = new Client();
-    conn.on('ready', function() {
+    conn.on('ready', function () {
         console.log('Client :: ready');
-        conn.exec('~/VersionCheck', function(err, stream) {
+        conn.exec('~/VersionCheck', function (err, stream) {
             if (err) throw err;
             stream
-                .on('close', function(code, signal) {
+                .on('close', function (code, signal) {
                     console.log(
                         'Stream :: close :: code: ' +
                         code +
@@ -65,13 +110,13 @@ const runVersionCheck = (hostAddress, response) => {
                         signal
                     );
                     conn.end();
-                    response.send({ result: 'success', allData: allData });
+                    response.send({result: 'success', allData: allData});
                 })
-                .on('data', function(data) {
+                .on('data', function (data) {
                     console.log('STDOUT: ' + data);
                     allData += data;
                 })
-                .stderr.on('data', function(data) {
+                .stderr.on('data', function (data) {
                 console.log('STDERR: ' + data);
                 allData += data;
             });
@@ -88,12 +133,12 @@ const runVersionCheck = (hostAddress, response) => {
 
 const runCpuInfo = (hostAddress, response) => {
     var conn = new Client();
-    conn.on('ready', function() {
+    conn.on('ready', function () {
         console.log('Client :: ready');
-        conn.exec('~/CpuInfo', function(err, stream) {
+        conn.exec('~/CpuInfo', function (err, stream) {
             if (err) throw err;
             stream
-                .on('close', function(code, signal) {
+                .on('close', function (code, signal) {
                     console.log(
                         'Stream :: close :: code: ' +
                         code +
@@ -101,15 +146,15 @@ const runCpuInfo = (hostAddress, response) => {
                         signal
                     );
                     conn.end();
-                    response.send({ result: 'success', allData: allData });
+                    response.send({result: 'success', allData: allData});
                 })
-                .on('data', function(data) {
+                .on('data', function (data) {
                     console.log('STDOUT: ' + data);
                     allData += data;
                 })
-                .stderr.on('data', function(data) {
+                .stderr.on('data', function (data) {
                 console.log('STDERR: ' + data);
-                allData += data;
+
             });
         });
     }).connect({
@@ -124,12 +169,12 @@ const runCpuInfo = (hostAddress, response) => {
 
 const runUptime = (hostAddress, response) => {
     var conn = new Client();
-    conn.on('ready', function() {
+    conn.on('ready', function () {
         console.log('Client :: ready');
-        conn.exec('/usr/bin/uptime', function(err, stream) {
+        conn.exec('/usr/bin/uptime', function (err, stream) {
             if (err) throw err;
             stream
-                .on('close', function(code, signal) {
+                .on('close', function (code, signal) {
                     console.log(
                         'Stream :: close :: code: ' +
                         code +
@@ -137,13 +182,13 @@ const runUptime = (hostAddress, response) => {
                         signal
                     );
                     conn.end();
-                    response.send({ result: 'success', allData: allData });
+                    response.send({result: 'success', allData: allData});
                 })
-                .on('data', function(data) {
+                .on('data', function (data) {
                     console.log('STDOUT: ' + data);
                     allData += data;
                 })
-                .stderr.on('data', function(data) {
+                .stderr.on('data', function (data) {
                 console.log('STDERR: ' + data);
                 allData += data;
             });
@@ -184,24 +229,23 @@ router.get('/run-script', (request, response) => {
 
 ////Following need to be implemented
 //router.get('/run-script', (request, response) => {...
-    ///stuff from JsObjects});
+///stuff from JsObjects});
 //router.get('/run-system-tool', (request, response) => {..
-   ///stuff from the /usr/bin directory on our system.});
+///stuff from the /usr/bin directory on our system.});
 
-    //on client this.dataEndPoints = ['/script-pusher/run-script?script=',
-    // '/script-pusher/run-system-tool?script='];
+//on client this.dataEndPoints = ['/script-pusher/run-script?script=',
+// '/script-pusher/run-system-tool?script='];
 
-    /*Calls to /script-pusher/run-script run code from JsObjects.
-    Calls to /script-pusher/run-system-tool run system utilities.
-    It's up to you to see how this simple array is used in the program
-    to help sort out this problem.*/
+/*Calls to /script-pusher/run-script run code from JsObjects.
+Calls to /script-pusher/run-system-tool run system utilities.
+It's up to you to see how this simple array is used in the program
+to help sort out this problem.*/
 
 //////Above need to be implemented
 
 
-
 const copyFile = () => {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         console.log('Copy to EC2', process.env.SETUP_LINUXBOX);
 
         const pushScript = spawn('scp', [
@@ -237,7 +281,7 @@ const copyFile = () => {
     });
 };
 
-router.get('/copy-file', function(request, response) {
+router.get('/copy-file', function (request, response) {
     'use strict';
     //response.send(Result: 'success'});
 
