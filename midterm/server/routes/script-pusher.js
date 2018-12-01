@@ -29,71 +29,73 @@ const check = (request, response, next) => {
 
 router.use(check);
 
-router.get('/run-system-tool', (request, response) => {
+/**router.get('/run-system-tool', (request, response) => {
     console.log("THIS IS RUN SYSTEM TOOL");
+    return new Promise(function (resolve, reject) {
+        var pushScript = '';
+        allData = '';
 
-    if (request.query.script === "uptime") {
-        console.log('uptime   ', '/usr/bin/uptime');
+        if (request.query.script === "uptime") {
+            console.log('uptime   ', '/usr/bin/uptime');
+            pushScript = spawn('/usr/bin/uptime');
+        } else if (request.query.script === "CpuInfo") {
+            pushScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
+        } else if (request.query.script === "VersionCheck") {
+            pushScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
+        }
 
-        const upScript = spawn('/usr/bin/uptime');
 
-        upScript.stdout.on('data', (data) => {
-            console.log(`uptime stdout:\n${data}`);
-
-            allData += data;
-            console.log("My response:  " + allData);
+        pushScript.stdout.on('data', data => {
+            console.log(`child stdout:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            //console.log('PUSH', data);
         });
 
-        upScript.stderr.on('data', (data) => {
-            console.error(`uptime stderr:\n${data}`);
-            allData += data;
+        pushScript.stderr.on('data', data => {
+            console.log(`child stderr:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            response.send({result: 'success', allData: allData});
+            //console.error('PUSH', data);
         });
 
-        response.send({result: 'success', allData: allData});
-
-    } else if (request.query.script === "CpuInfo") {
-
-
-
-        const cpuInfoScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
-
-        cpuInfoScript.stdout.on('data', (data) => {
-            console.log(`uptime stdout:\n${data}`);
-
-            allData += data;
-            console.log("My response:  " + allData);
+        pushScript.on('close', code => {
+            resolve({
+                result: 'success',
+                code: code
+            });
         });
 
-        cpuInfoScript.stderr.on('data', (data) => {
-            console.error(`uptime stderr:\n${data}`);
-            allData += data;
+        pushScript.on('error', code => {
+            reject({
+                result: 'error',
+                code: code
+            });
         });
-
-        response.send({result: 'success', allData: allData});
-
-    } else if (request.query.script === "VersionCheck") {
+    });
+    };
 
 
 
-        const versionScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
 
-        versionScript.stdout.on('data', (data) => {
-            console.log(`uptime stdout:\n${data}`);
+/*
+    myScript.stdout.on('data', (data) => {
+        console.log(` stdout on data:\n${data}`);
 
-            allData += data;
-            console.log("My response:  " + allData);
-        });
+        allData = '${data}';
+        console.log("My response:  " + allData);
+    });
 
-        versionScript.stderr.on('data', (data) => {
-            console.error(`uptime stderr:\n${data}`);
-            allData += data;
-        });
+    myScript.stderr.on('data', (data) => {
+        console.error(`uptime stderr:\n${data}`);
+        allData = data;
+    });
 
-        response.send({result: 'success', allData: allData});
+*/
 
-    }
 
-});
+
+
+
 
 const runVersionCheck = (hostAddress, response) => {
     var conn = new Client();
@@ -255,13 +257,13 @@ const copyFile = () => {
 
         pushScript.stdout.on('data', data => {
             console.log(`child stdout:\n${data}`);
-            allData += 'PUSH-SCRIPT: ' + data;
+
             //console.log('PUSH', data);
         });
 
         pushScript.stderr.on('data', data => {
             console.log(`child stderr:\n${data}`);
-            allData += 'PUSH-SCRIPT: ' + data;
+
             //console.error('PUSH', data);
         });
 
@@ -280,6 +282,68 @@ const copyFile = () => {
         });
     });
 };
+
+const runMyLocalTool = (request, response) => {
+    return new Promise(function (resolve, reject) {
+
+        var myScript = '';
+
+
+        if (request.query.script === "uptime") {
+            console.log('uptime   ', '/usr/bin/uptime');
+            myScript = spawn('/usr/bin/uptime');
+        } else if (request.query.script === "CpuInfo") {
+            myScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
+        } else if (request.query.script === "VersionCheck") {
+            myScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
+        }
+
+        myScript.stdout.on('data', data => {
+            console.log(`child stdout:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            console.log('AllData', allData);
+        });
+
+        myScript.stderr.on('data', data => {
+            console.log(`child stderr:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            console.error('allData', allData);
+        });
+
+        myScript.on('close', code => {
+            resolve({
+                result: 'success',
+                allData: allData,
+                code: code
+            });
+        });
+
+        myScript.on('error', code => {
+            reject({
+                result: 'error',
+                allData: allData,
+                code: code
+            });
+        });
+    });
+};
+router.get('/run-system-tool', (request, response) => {
+    'use strict';
+    //response.send(Result: 'success'});
+
+    runMyLocalTool(request, response)
+        .then(result => {
+            console.log(
+                'This is from the server: ' + JSON.stringify(allData, null, 4)
+            );
+            response.send(result);
+        })
+        .catch(err => {
+            console.log(err);
+            response.send(err);
+        });
+});
+
 
 router.get('/copy-file', function (request, response) {
     'use strict';
