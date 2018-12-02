@@ -14,40 +14,7 @@ class Local extends Component {
             endPointIndex: 1
         };
     }
-    /*runScript = (path, script) => {
-        const that = this;
-        if (!script) {
-            return;
-        }
-        fetch(path + script)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                console.log('allData', json.allData);
-                console.log('result', json.result);
-                console.log('code', json.code);
-                console.log('error', json.error);
-                let info = '';
-                if (json.result === 'error') {
-                    info = json.error;
-                } else if (script === 'CpuInfo') {
-                    var regex1 = RegExp('model name.*', 'g');
-                    let array1 = regex1.exec(json.allData);
-                    while (array1 !== null) {
-                        info += array1[0] + '\n';
-                        console.log(`Found ${array1[0]}.`);
-                        array1 = regex1.exec(json.allData);
-                    }
-                } else {
-                    info = json.allData;
-                }
-                that.setState({allData: info});
-            })
-            .catch(function (ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
-            });
-    };*/
+
 
     runSystemTool = (path, script) => {
         const that = this;
@@ -84,63 +51,6 @@ class Local extends Component {
             });
     };
 
-
-
-    /*callCpuInfo = () => {
-        const that = this;
-        fetch('/ssh-runner/call-cpu-info')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                console.log('parsed json', json.allData);
-                that.setState({allData: json.allData});
-            })
-            .catch(function (ex) {
-                console.log(
-                    'parsing failed, URL bad, network down, or similar',
-                    ex
-                );
-            });
-    };
-
-    callVersionCheck = () => {
-        const that = this;
-
-        fetch('/ssh-runner/call-version-check')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                console.log('Version Check AllData', json.allData);
-                that.setState({allData: json.allData});
-            })
-            .catch(function (ex) {
-                console.log(
-                    'parsing failed, URL bad, network down, or similar',
-                    ex
-                );
-            });
-    };
-
-   callUptime = () => {
-        const that = this;
-
-        fetch('/ssh-runner/call-uptime')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                console.log('Uptime AllData', json.allData);
-                that.setState({allData: json.allData});
-            })
-            .catch(function (ex) {
-                console.log(
-                    'parsing failed, URL bad, network down, or similar',
-                    ex
-                );
-            });
-    }; **/
 
 
 
