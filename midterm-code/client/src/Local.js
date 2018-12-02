@@ -169,7 +169,7 @@ class Local extends Component {
     };
 
 
-    /*copyFile = () => {
+    copyFile = () => {
         const that = this;
         fetch('/script-pusher/copy-file')
             .then(function (response) {
@@ -184,7 +184,7 @@ class Local extends Component {
                     ex
                 );
             });
-    };*/
+    };
 
     render() {
         const localRadioWeb = (
@@ -241,7 +241,7 @@ class Local extends Component {
                 <section>
                     {localRadioWeb}
                     <p>
-                        Selected radio button: {this.state.checkedRadioButton}
+                        Selected radio button: {this.state.selectedValue}
                     </p>
                 </section>
 
@@ -250,10 +250,9 @@ class Local extends Component {
                 </section>
 
                 <main>
-                    <button onClick={this.runFoo}>Run Foo</button>
+
                     <button onClick={this.copyFile}>Copy File</button>
-                    <button onClick={this.callCpuInfo}>Run CPU Info</button>
-                    <button onClick={this.runSystemTool()}>Run CPU Info</button>
+
                 </main>
                 <footer>
                     <p>&copy; by Margie Calvert </p>

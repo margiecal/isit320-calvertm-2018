@@ -50,100 +50,6 @@ class App extends Component {
                 });
         };
 
-    runSystemTool = (path, script) => {
-        const that = this;
-        if (!script) {
-            return;
-        }
-        fetch(path + script)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                console.log('allData', json.allData);
-                console.log('result', json.result);
-                console.log('code', json.code);
-                console.log('error', json.error);
-                let info = '';
-                if (json.result === 'error') {
-                    info = json.error;
-                } else if (script === 'CpuInfo') {
-                    var regex1 = RegExp('model name.*', 'g');
-                    let array1 = regex1.exec(json.allData);
-                    while (array1 !== null) {
-                        info += array1[0] + '\n';
-                        console.log(`Found ${array1[0]}.`);
-                        array1 = regex1.exec(json.allData);
-                    }
-                } else {
-                    info = json.allData;
-                }
-                that.setState({allData: info});
-            })
-            .catch(function (ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
-            });
-    };
-
-
-
-    callCpuInfo = () => {
-            const that = this;
-            fetch('/ssh-runner/call-cpu-info')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json) {
-                    console.log('parsed json', json.allData);
-                    that.setState({allData: json.allData});
-                })
-                .catch(function (ex) {
-                    console.log(
-                        'parsing failed, URL bad, network down, or similar',
-                        ex
-                    );
-                });
-        };
-
-        callVersionCheck = () => {
-            const that = this;
-
-            fetch('/ssh-runner/call-version-check')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json) {
-                    console.log('Version Check AllData', json.allData);
-                    that.setState({allData: json.allData});
-                })
-                .catch(function (ex) {
-                    console.log(
-                        'parsing failed, URL bad, network down, or similar',
-                        ex
-                    );
-                });
-        };
-
-        callUptime = () => {
-            const that = this;
-
-            fetch('/ssh-runner/call-uptime')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (json) {
-                    console.log('Uptime AllData', json.allData);
-                    that.setState({allData: json.allData});
-                })
-                .catch(function (ex) {
-                    console.log(
-                        'parsing failed, URL bad, network down, or similar',
-                        ex
-                    );
-                });
-        };
-
-
 
         handleChange = (event) => {
             const selectedValue = event.target.value;
@@ -167,8 +73,25 @@ class App extends Component {
             event.preventDefault();
         };
 
+        runFoo = () => {
+        const that = this;
+        fetch('/foo')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                console.log('parsed json', json);
+            })
+            .catch(function (ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
+            });
+    };
 
-        copyFile = () => {
+
+    copyFile = () => {
             const that = this;
             fetch('/script-pusher/copy-file')
                 .then(function (response) {
@@ -191,7 +114,7 @@ class App extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <fieldset>
                             <div className="elf-form-field">
-                                <legend>Services</legend>
+                                <legend>Remote Services</legend>
                                 <input
                                     type="radio"
                                     name="app-choice"
@@ -242,7 +165,7 @@ class App extends Component {
                     <section>
                         {radioWeb}
                         <p>
-                            Selected radio button: {this.state.checkedRadioButton}
+                            Selected radio button: {this.state.selectedValue}
                         </p>
                     </section>
 
@@ -252,9 +175,9 @@ class App extends Component {
 
                     <main>
                         <button onClick={this.runFoo}>Run Foo</button>
-                        <button onClick={this.copyFile}>Copy File</button>
-                        <button onClick={this.callCpuInfo}>Run CPU Info</button>
-                        <button onClick={this.runSystemTool()}>Run CPU Info</button>
+
+
+
                     </main>
                     <footer>
                         <p>&copy; by Margie Calvert </p>
