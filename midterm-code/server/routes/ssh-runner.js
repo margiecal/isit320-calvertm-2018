@@ -1,45 +1,130 @@
 var express = require('express');
 var router = express.Router();
+const Client = require('ssh2').Client;
+
+const hostAddress = '18.236.24.112';
+const localhostAddress = '127.0.0.1';
+const spawn = require('child_process').spawn;
 
 let allData = '';
 
-/*
+
+const runMyLocalTool = (request, response) => {
+    return new Promise(function (resolve, reject) {
+
+        var myScript = '';
+
+
+        if (request.query.script === "uptime") {
+            console.log('uptime   ', '/usr/bin/uptime');
+            myScript = spawn('/usr/bin/uptime');
+        } else if (request.query.script === "CpuInfo") {
+            myScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
+        } else if (request.query.script === "VersionCheck") {
+            myScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
+        }
+
+        myScript.stdout.on('data', data => {
+            console.log(`child stdout:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            console.log('AllData', allData);
+        });
+
+        myScript.stderr.on('data', data => {
+            console.log(`child stderr:\n${data}`);
+            allData += 'PUSH-SCRIPT: ' + data;
+            console.error('allData', allData);
+        });
+
+        myScript.on('close', code => {
+            resolve({
+                result: 'success',
+                allData: allData,
+                code: code
+            });
+        });
+
+        myScript.on('error', code => {
+            reject({
+                result: 'error',
+                allData: allData,
+                code: code
+            });
+        });
+    });
+};
+
+const copyFile = () => {
+    return new Promise(function (resolve, reject) {
+        console.log('Copy to EC2', process.env.SETUP_LINUXBOX);
+
+        const pushScript = spawn('scp', [
+            process.env.SETUP_LINUXBOX + '/CpuInfo',
+            'ec2-bc:/home/ubuntu'
+        ]);
+
+        pushScript.stdout.on('data', data => {
+            console.log(`child stdout:\n${data}`);
+
+            //console.log('PUSH', data);
+        });
+
+        pushScript.stderr.on('data', data => {
+            console.log(`child stderr:\n${data}`);
+
+            //console.error('PUSH', data);
+        });
+
+        pushScript.on('close', code => {
+            resolve({
+                result: 'success',
+                code: code
+            });
+        });
+
+        pushScript.on('error', code => {
+            reject({
+                result: 'error',
+                code: code
+            });
+        });
+    });
+};
+
+
+
 router.get('/run-system-tool', (request, response) => {
-    console.log("THIS IS RUN SYSTEM TOOL");
+    'use strict';
+    //response.send(Result: 'success'});
 
-    console.log('process.env   ', process.env);
-
-});*/
-
-
-/**router.get('/run-script', (request, response) => {
-    console.log('Request query script in run-script  ' + request.query.script);
-
-    if (request.query.script === 'CpuInfo') {
-        console.log('INSIDE RUN SCRIPT aa');
-        runCpuInfo();
-
-    }
-
-});**/
-
-
-
-
-/**
-router.get('/call-cpu-info', (request, response) => {
-    console.log('cpu info called');
-    runCpuInfo(hostAddress, response);
+    runMyLocalTool(request, response)
+        .then(result => {
+            console.log(
+                'This is from the server: ' + JSON.stringify(allData, null, 4)
+            );
+            response.send(result);
+        })
+        .catch(err => {
+            console.log(err);
+            response.send(err);
+        });
 });
 
-router.get('/call-version-check', (request, response) => {
-    console.log('version check called');
-    runVersionCheck(hostAddress, response);
+router.get('/copy-file', function (request, response) {
+    'use strict';
+    //response.send(Result: 'success'});
+
+    copyFile()
+        .then(result => {
+            console.log(
+                'This is from the server: ' + JSON.stringify(result, null, 4)
+            );
+            response.send(result);
+        })
+        .catch(err => {
+            console.log(err);
+            response.send(err);
+        });
 });
 
-router.get('/call-uptime', (request, response) => {
-    console.log('uptime called');
-    runUptime(hostAddress, response);
-});
-**/
 module.exports = router;

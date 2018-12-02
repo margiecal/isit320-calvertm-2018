@@ -7,7 +7,7 @@ class Local extends Component {
         super(props);
         this.dataEndPoints = ['/script-pusher' +
         '/run-script?script=',
-            '/script-pusher/run-system-tool?script='];
+            '/ssh-runner/run-system-tool?script='];
         this.state = {
             allData: '',
             selectedValue: '',
@@ -81,7 +81,7 @@ class Local extends Component {
 
     copyFile = () => {
         const that = this;
-        fetch('/script-pusher/copy-file')
+        fetch('/ssh-runner/copy-file')
             .then(function (response) {
                 return response.json();
             })
