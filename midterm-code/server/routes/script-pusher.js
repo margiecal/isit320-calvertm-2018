@@ -47,11 +47,11 @@ const runMyScript = (hostAddress, response) => {
                 })
                 .on('data', function(data) {
                     console.log('STDOUT: ' + data);
-                    allData += data;
+                    allData = data;
                 })
                 .stderr.on('data', function(data) {
                     console.log('STDERR: ' + data);
-                    allData += data;
+                    allData = data;
                 });
         });
     }).connect({
@@ -69,17 +69,19 @@ router.get('/run-script', (request, response) => {
 
     if (request.query.script === 'CpuInfo') {
         myPath = '~/CpuInfo';
-        console.log('INSIDE RUN SCRIPTnnn CPUnn Info');
+        console.log('INSIDE RUN SCRIPT CPU Info');
 
         runMyScript(hostAddress, response);
+
     } else if (request.query.script === 'VersionCheck') {
         myPath = '~/VersionCheck';
-        console.log('INSIDE RUN SCRIPTnnn VersionChecknn');
+        console.log('INSIDE RUN SCRIPT VersionCheck');
 
         runMyScript(hostAddress, response);
+
     } else if (request.query.script === 'uptime') {
         myPath = '/usr/bin/uptime';
-        console.log('INSIDE RUN SCript uptimemmm');
+        console.log('INSIDE RUN SCript uptime');
 
         runMyScript(hostAddress, response);
     }

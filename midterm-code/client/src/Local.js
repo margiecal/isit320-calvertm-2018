@@ -40,7 +40,15 @@ class Local extends Component {
                         console.log(`Found ${array1[0]}.`);
                         array1 = regex1.exec(json.allData);
                     }
-                } else {
+                }  else if (script === 'VersionCheck') {
+            var regex1 = RegExp('DISTRIB_DESCRIPTION.*', 'g');
+            let array1 = regex1.exec(json.allData);
+            while (array1 !== null) {
+                info += array1[0] + '\n';
+                console.log(`Found ${array1[0]}.`);
+                array1 = regex1.exec(json.allData);
+            }
+        }else {
                     info = json.allData;
                 }
                 that.setState({ allData: info });
