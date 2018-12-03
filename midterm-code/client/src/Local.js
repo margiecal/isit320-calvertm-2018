@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-
 
 class Local extends Component {
     constructor(props) {
         super(props);
-        this.dataEndPoints = ['/script-pusher' +
-        '/run-script?script=',
-            '/ssh-runner/run-system-tool?script='];
+        this.dataEndPoints = [
+            '/script-pusher' + '/run-script?script=',
+            '/ssh-runner/run-system-tool?script='
+        ];
         this.state = {
             allData: '',
             selectedValue: '',
@@ -15,17 +15,16 @@ class Local extends Component {
         };
     }
 
-
     runSystemTool = (path, script) => {
         const that = this;
         if (!script) {
             return;
         }
         fetch(path + script)
-            .then(function (response) {
+            .then(function(response) {
                 return response.json();
             })
-            .then(function (json) {
+            .then(function(json) {
                 console.log('allData', json.allData);
                 console.log('result', json.result);
                 console.log('code', json.code);
@@ -44,17 +43,17 @@ class Local extends Component {
                 } else {
                     info = json.allData;
                 }
-                that.setState({allData: info});
+                that.setState({ allData: info });
             })
-            .catch(function (ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
+            .catch(function(ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
             });
     };
 
-
-
-
-    handleChange = (event) => {
+    handleChange = event => {
         const selectedValue = event.target.value;
         const endPointIndex = event.target.getAttribute('data-endpoint');
         console.log('HANDLE CHANGE', selectedValue);
@@ -63,32 +62,32 @@ class Local extends Component {
             selectedValue: selectedValue,
             endPointIndex: endPointIndex
         });
-
     };
 
-
-
-    handleSubmit = (event) => {
-        this.setState({allData: ''});
+    handleSubmit = event => {
+        this.setState({ allData: '' });
         console.log('A name was submitted: ', this.state);
-        console.log ("path and value:  " + this.dataEndPoints[this.state.endPointIndex],
-            this.state.selectedValue);
-        this.runSystemTool(this.dataEndPoints[this.state.endPointIndex],
-            this.state.selectedValue);
+        console.log(
+            'path and value:  ' + this.dataEndPoints[this.state.endPointIndex],
+            this.state.selectedValue
+        );
+        this.runSystemTool(
+            this.dataEndPoints[this.state.endPointIndex],
+            this.state.selectedValue
+        );
         event.preventDefault();
     };
-
 
     copyFile = () => {
         const that = this;
         fetch('/ssh-runner/copy-file')
-            .then(function (response) {
+            .then(function(response) {
                 return response.json();
             })
-            .then(function (json) {
+            .then(function(json) {
                 console.log('parsed json', json);
             })
-            .catch(function (ex) {
+            .catch(function(ex) {
                 console.log(
                     'parsing failed, URL bad, network down, or similar',
                     ex
@@ -121,7 +120,9 @@ class Local extends Component {
                                 id="elf-radio-version"
                                 onChange={this.handleChange}
                             />
-                            <label htmlFor="elf-radio-version">Version Info</label>
+                            <label htmlFor="elf-radio-version">
+                                Version Info
+                            </label>
 
                             <input
                                 type="radio"
@@ -146,13 +147,9 @@ class Local extends Component {
 
         return (
             <div className="App">
-
-
                 <section>
                     {localRadioWeb}
-                    <p>
-                        Selected radio button: {this.state.selectedValue}
-                    </p>
+                    <p>Selected radio button: {this.state.selectedValue}</p>
                 </section>
 
                 <section>
@@ -160,9 +157,7 @@ class Local extends Component {
                 </section>
 
                 <main>
-
                     <button onClick={this.copyFile}>Copy File</button>
-
                 </main>
                 <footer>
                     <p>&copy; by Margie Calvert </p>

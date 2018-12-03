@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
-
 
 class Remote extends Component {
     constructor(props) {
         super(props);
-        this.dataEndPoints = ['/script-pusher' +
-        '/run-script?script=',
-            '/script-pusher/run-system-tool?script='];
+        this.dataEndPoints = [
+            '/script-pusher' + '/run-script?script=',
+            '/script-pusher/run-system-tool?script='
+        ];
         this.state = {
             allData: '',
             selectedValue: '',
@@ -20,10 +20,10 @@ class Remote extends Component {
             return;
         }
         fetch(path + script)
-            .then(function (response) {
+            .then(function(response) {
                 return response.json();
             })
-            .then(function (json) {
+            .then(function(json) {
                 console.log('allData', json.allData);
                 console.log('result', json.result);
                 console.log('code', json.code);
@@ -42,15 +42,17 @@ class Remote extends Component {
                 } else {
                     info = json.allData;
                 }
-                that.setState({allData: info});
+                that.setState({ allData: info });
             })
-            .catch(function (ex) {
-                console.log('parsing failed, URL bad, network down, or similar', ex);
+            .catch(function(ex) {
+                console.log(
+                    'parsing failed, URL bad, network down, or similar',
+                    ex
+                );
             });
     };
 
-
-    handleChange = (event) => {
+    handleChange = event => {
         const selectedValue = event.target.value;
         const endPointIndex = event.target.getAttribute('data-endpoint');
         console.log('HANDLE CHANGE', selectedValue);
@@ -59,38 +61,34 @@ class Remote extends Component {
             selectedValue: selectedValue,
             endPointIndex: endPointIndex
         });
-
     };
 
-
-
-    handleSubmit = (event) => {
-        this.setState({allData: ''});
+    handleSubmit = event => {
+        this.setState({ allData: '' });
         console.log('A name was submitted: ', this.state);
-        this.runScript(this.dataEndPoints[this.state.endPointIndex],
-            this.state.selectedValue);
+        this.runScript(
+            this.dataEndPoints[this.state.endPointIndex],
+            this.state.selectedValue
+        );
         event.preventDefault();
     };
 
     runFoo = () => {
         const that = this;
         fetch('/foo')
-            .then(function (response) {
+            .then(function(response) {
                 return response.json();
             })
-            .then(function (json) {
+            .then(function(json) {
                 console.log('parsed json', json);
             })
-            .catch(function (ex) {
+            .catch(function(ex) {
                 console.log(
                     'parsing failed, URL bad, network down, or similar',
                     ex
                 );
             });
     };
-
-
-
 
     render() {
         const radioWeb = (
@@ -117,7 +115,9 @@ class Remote extends Component {
                                 id="elf-radio-version"
                                 onChange={this.handleChange}
                             />
-                            <label htmlFor="elf-radio-version">Version Info</label>
+                            <label htmlFor="elf-radio-version">
+                                Version Info
+                            </label>
 
                             <input
                                 type="radio"
@@ -142,14 +142,9 @@ class Remote extends Component {
 
         return (
             <div className="App">
-
-
-
                 <section>
                     {radioWeb}
-                    <p>
-                        Selected radio button: {this.state.selectedValue}
-                    </p>
+                    <p>Selected radio button: {this.state.selectedValue}</p>
                 </section>
 
                 <section>
@@ -158,9 +153,6 @@ class Remote extends Component {
 
                 <main>
                     <button onClick={this.runFoo}>Run Foo</button>
-
-
-
                 </main>
                 <footer>
                     <p>&copy; by Margie Calvert </p>

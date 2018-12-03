@@ -1,25 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const Client = require('ssh2').Client;
-
-const hostAddress = '18.236.24.112';
-const localhostAddress = '127.0.0.1';
 const spawn = require('child_process').spawn;
 
 let allData = '';
 
 const runMyLocalTool = (request, response) => {
-    return new Promise(function (resolve, reject) {
-
+    return new Promise(function(resolve, reject) {
         var myScript = '';
 
-
-        if (request.query.script === "uptime") {
+        if (request.query.script === 'uptime') {
             console.log('uptime   ', '/usr/bin/uptime');
             myScript = spawn('/usr/bin/uptime');
-        } else if (request.query.script === "CpuInfo") {
+        } else if (request.query.script === 'CpuInfo') {
             myScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
-        } else if (request.query.script === "VersionCheck") {
+        } else if (request.query.script === 'VersionCheck') {
             myScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
         }
 
@@ -54,7 +48,7 @@ const runMyLocalTool = (request, response) => {
 };
 
 const copyFile = () => {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         console.log('Copy to EC2', process.env.SETUP_LINUXBOX);
 
         const pushScript = spawn('scp', [
@@ -90,8 +84,6 @@ const copyFile = () => {
     });
 };
 
-
-
 router.get('/run-system-tool', (request, response) => {
     'use strict';
     //response.send(Result: 'success'});
@@ -109,7 +101,7 @@ router.get('/run-system-tool', (request, response) => {
         });
 });
 
-router.get('/copy-file', function (request, response) {
+router.get('/copy-file', function(request, response) {
     'use strict';
     //response.send(Result: 'success'});
 
