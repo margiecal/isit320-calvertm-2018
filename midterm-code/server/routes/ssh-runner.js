@@ -8,6 +8,7 @@ let versionData = '';
 const runMyLocalTool = (request, response) => {
     return new Promise(function(resolve, reject) {
         var myScript = '';
+        allData = '';
 
         if (request.query.script === 'uptime') {
             console.log('uptime   ', '/usr/bin/uptime');
@@ -22,8 +23,6 @@ const runMyLocalTool = (request, response) => {
 
         myScript.stdout.on('data', data => {
             console.log(`child stdout:\n${data}`);
-
-            versionData = data;
             allData += 'PUSH-SCRIPT: ' + data;
             console.log('AllData', allData);
         });
@@ -64,13 +63,13 @@ const copyFile = () => {
         pushScript.stdout.on('data', data => {
             console.log(`child stdout:\n${data}`);
 
-            console.log('PUSH', data);
+            //console.log('PUSH', data);
         });
 
         pushScript.stderr.on('data', data => {
             console.log(`child stderr:\n${data}`);
 
-            console.error('PUSH', data);
+            //console.error('PUSH', data);
         });
 
         pushScript.on('close', code => {

@@ -15,6 +15,7 @@ class Remote extends Component {
         };
     }
     runScript = (path, script) => {
+
         const that = this;
         if (!script) {
             return;
@@ -33,6 +34,14 @@ class Remote extends Component {
                     info = json.error;
                 } else if (script === 'CpuInfo') {
                     var regex1 = RegExp('model name.*', 'g');
+                    let array1 = regex1.exec(json.allData);
+                    while (array1 !== null) {
+                        info += array1[0] + '\n';
+                        console.log(`Found ${array1[0]}.`);
+                        array1 = regex1.exec(json.allData);
+                    }
+                } else if (script === 'VersionCheck') {
+                    let regex1 = RegExp('DISTRIB_DESCRIPTION.*', 'g');
                     let array1 = regex1.exec(json.allData);
                     while (array1 !== null) {
                         info += array1[0] + '\n';
