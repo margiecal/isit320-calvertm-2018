@@ -8,7 +8,6 @@ const spawn = require('child_process').spawn;
 
 let allData = '';
 
-
 const runMyLocalTool = (request, response) => {
     return new Promise(function (resolve, reject) {
 

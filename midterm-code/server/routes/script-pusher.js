@@ -7,6 +7,7 @@ const localhostAddress = '127.0.0.1';
 const spawn = require('child_process').spawn;
 
 let allData = '';
+let myPath = '';
 
 
 const check = (request, response, next) => {
@@ -29,11 +30,12 @@ const check = (request, response, next) => {
 
 router.use(check);
 
-const runVersionCheck = (hostAddress, response) => {
+const runMyScript = (hostAddress, response) => {
+
     var conn = new Client();
     conn.on('ready', function () {
         console.log('Client :: ready');
-        conn.exec('~/VersionCheck', function (err, stream) {
+        conn.exec(myPath, function (err, stream) {
             if (err) throw err;
             stream
                 .on('close', function (code, signal) {
@@ -65,97 +67,31 @@ const runVersionCheck = (hostAddress, response) => {
     });
 };
 
-const runCpuInfo = (hostAddress, response) => {
-    var conn = new Client();
-    conn.on('ready', function () {
-        console.log('Client :: ready');
-        conn.exec('~/CpuInfo', function (err, stream) {
-            if (err) throw err;
-            stream
-                .on('close', function (code, signal) {
-                    console.log(
-                        'Stream :: close :: code: ' +
-                        code +
-                        ', signal: ' +
-                        signal
-                    );
-                    conn.end();
-                    response.send({result: 'success', allData: allData});
-                })
-                .on('data', function (data) {
-                    console.log('STDOUT: ' + data);
-                    allData += data;
-                })
-                .stderr.on('data', function (data) {
-                console.log('STDERR: ' + data);
-
-            });
-        });
-    }).connect({
-        host: hostAddress,
-        port: 22,
-        username: 'ubuntu',
-        privateKey: require('fs').readFileSync(
-            process.env.HOME + '/.ssh/EC2Fall2018.pem'
-        )
-    });
-};
-
-const runUptime = (hostAddress, response) => {
-    var conn = new Client();
-    conn.on('ready', function () {
-        console.log('Client :: ready');
-        conn.exec('/usr/bin/uptime', function (err, stream) {
-            if (err) throw err;
-            stream
-                .on('close', function (code, signal) {
-                    console.log(
-                        'Stream :: close :: code: ' +
-                        code +
-                        ', signal: ' +
-                        signal
-                    );
-                    conn.end();
-                    response.send({result: 'success', allData: allData});
-                })
-                .on('data', function (data) {
-                    console.log('STDOUT: ' + data);
-                    allData += data;
-                })
-                .stderr.on('data', function (data) {
-                console.log('STDERR: ' + data);
-                allData += data;
-            });
-        });
-    }).connect({
-        host: hostAddress,
-        port: 22,
-        username: 'ubuntu',
-        privateKey: require('fs').readFileSync(
-            process.env.HOME + '/.ssh/EC2Fall2018.pem'
-        )
-    });
-};
 
 router.get('/run-script', (request, response) => {
     console.log('Request query script in run-script  ' + request.query.script);
 
+
+
     if (request.query.script === 'CpuInfo') {
+        myPath = '~/CpuInfo';
         console.log('INSIDE RUN SCRIPTnnn CPUnn Info');
 
-        runCpuInfo(hostAddress, response);
+        runMyScript(hostAddress, response);
     }
 
     else if (request.query.script === 'VersionCheck') {
+        myPath = '~/VersionCheck';
         console.log('INSIDE RUN SCRIPTnnn VersionChecknn');
 
-        runVersionCheck(hostAddress, response);
+        runMyScript(hostAddress, response);
     }
 
     else if (request.query.script === 'uptime') {
+        myPath = '/usr/bin/uptime'
         console.log('INSIDE RUN SCript uptimemmm');
 
-        runUptime(hostAddress, response);
+        runMyScript(hostAddress, response);
     }
 
 });
