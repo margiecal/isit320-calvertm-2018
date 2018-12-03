@@ -67,19 +67,24 @@ const runMyScript = (hostAddress, response) => {
 router.get('/run-script', (request, response) => {
     console.log('Request query script in run-script  ' + request.query.script);
 
+
+
     if (request.query.script === 'CpuInfo') {
         myPath = '~/CpuInfo';
-        console.log('INSIDE RUN SCRIPTnnn CPUnn Info');
+        console.log('INSIDE RUN SCRIPT CPU Info');
 
         runMyScript(hostAddress, response);
+
     } else if (request.query.script === 'VersionCheck') {
         myPath = '~/VersionCheck';
-        console.log('INSIDE RUN SCRIPTnnn VersionChecknn');
+        console.log('INSIDE RUN SCRIPT VersionCheck');
 
         runMyScript(hostAddress, response);
+
     } else if (request.query.script === 'uptime') {
+        allData = '';
         myPath = '/usr/bin/uptime';
-        console.log('INSIDE RUN SCript uptimemmm');
+        console.log('INSIDE RUN SCript uptime');
 
         runMyScript(hostAddress, response);
     }

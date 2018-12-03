@@ -3,16 +3,20 @@ var router = express.Router();
 const spawn = require('child_process').spawn;
 
 let allData = '';
+let versionData = '';
 
 const runMyLocalTool = (request, response) => {
     return new Promise(function(resolve, reject) {
         var myScript = '';
+        allData = '';
 
         if (request.query.script === 'uptime') {
             console.log('uptime   ', '/usr/bin/uptime');
             myScript = spawn('/usr/bin/uptime');
+
         } else if (request.query.script === 'CpuInfo') {
             myScript = spawn(process.env.SETUP_LINUXBOX + '/CpuInfo');
+
         } else if (request.query.script === 'VersionCheck') {
             myScript = spawn(process.env.SETUP_LINUXBOX + '/VersionCheck');
         }

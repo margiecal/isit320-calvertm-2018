@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 
 class Local extends Component {
@@ -21,10 +21,10 @@ class Local extends Component {
             return;
         }
         fetch(path + script)
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 console.log('allData', json.allData);
                 console.log('result', json.result);
                 console.log('code', json.code);
@@ -40,12 +40,20 @@ class Local extends Component {
                         console.log(`Found ${array1[0]}.`);
                         array1 = regex1.exec(json.allData);
                     }
+                } else if (script === 'VersionCheck') {
+                    let regex1 = RegExp('DISTRIB_DESCRIPTION.*', 'g');
+                    let array1 = regex1.exec(json.allData);
+                    while (array1 !== null) {
+                        info += array1[0] + '\n';
+                        console.log(`Found ${array1[0]}.`);
+                        array1 = regex1.exec(json.allData);
+                    }
                 } else {
                     info = json.allData;
                 }
-                that.setState({ allData: info });
+                that.setState({allData: info});
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log(
                     'parsing failed, URL bad, network down, or similar',
                     ex
@@ -65,7 +73,7 @@ class Local extends Component {
     };
 
     handleSubmit = event => {
-        this.setState({ allData: '' });
+        this.setState({allData: ''});
         console.log('A name was submitted: ', this.state);
         console.log(
             'path and value:  ' + this.dataEndPoints[this.state.endPointIndex],
@@ -81,13 +89,13 @@ class Local extends Component {
     copyFile = () => {
         const that = this;
         fetch('/ssh-runner/copy-file')
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 console.log('parsed json', json);
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log(
                     'parsing failed, URL bad, network down, or similar',
                     ex
